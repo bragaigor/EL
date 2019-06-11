@@ -17,7 +17,7 @@ To get started with EL you will need the following:
 ### 2. Clone the repository and get the submodules
 
 ```sh
-git clone --recursive https://github.com/charliegracie/EL.git
+git clone --recursive https://github.com/bragaigor/EL.git
 ```
 
 ### 3. Build EL
