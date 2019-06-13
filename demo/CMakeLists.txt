@@ -3,8 +3,6 @@ add_executable(demo
 	DemoMethod.cpp
 	DemoHelpers.cpp
 	Main.cpp
-	$<TARGET_OBJECTS:bytecodes>
-	$<TARGET_OBJECTS:parser>
 )
 
-target_link_libraries(demo omr_jitbuilder_static)
+target_link_libraries(demo bytecodes parser omr_jitbuilder_static)
