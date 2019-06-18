@@ -1,7 +1,7 @@
 Test
 
 DEF main 0
-	NOP
+	//NOP
 	PUSH_CONSTANT 9
 	PUSH_CONSTANT 8
 	ADD

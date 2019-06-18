@@ -40,9 +40,9 @@ DEF looping_add 1
 	//sum = sum + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12 + 13 + 14 + 15
 	//i = local 0
 	//sum = local 1
-	PUSH_CONSTANT 0
-	POP_LOCAL 0
 	PUSH_CONSTANT 1
+	POP_LOCAL 0
+	PUSH_CONSTANT 0
 	POP_LOCAL 1
 LOOP_START:
 	//if (i > arg0) leave the loop

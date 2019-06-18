@@ -19,8 +19,13 @@ DEF main 0
 	PRINT_STRING "after call 2\n"
 	POP
 	CALL fib 1
+	PRINT_STRING "after fib 1\n"
 	PUSH_CONSTANT 12
 	DIV
+	DUP
+	PRINT_STRING "Calculating fib of: "
+	PRINT_INT64
+	PRINT_STRING "\n"
 	CALL iterFib 1
 	POP
 	CALL testprint 0

@@ -48,6 +48,7 @@ using OMR::JitBuilder::VirtualMachineRegisterInStruct;
 #define PUSH_CONSTANT_LENGTH 9
 #define ADD_LENGTH 1
 #define MUL_LENGTH 1
+#define DIV_LENGTH 1
 #define RETURN_LENGTH 1
 #define PRINT_STRING_LENGTH 9
 #define PRINT_INT64_LENGTH 1
@@ -91,6 +92,7 @@ private:
     static int64_t doPushLocal(RuntimeBuilder *rb, IlBuilder *b);
     static int64_t doPopLocal(RuntimeBuilder *rb, IlBuilder *b);
     static int64_t doMul(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t doDiv(RuntimeBuilder *rb, IlBuilder *b);
 
     static int64_t doCallWithJIT(RuntimeBuilder *rb, IlBuilder *b);
 

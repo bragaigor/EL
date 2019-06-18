@@ -24,8 +24,34 @@ git clone --recursive https://github.com/bragaigor/EL.git
 
 ```sh
 cd EL \
-mkdir build \
+&& mkdir build \
 && cd build \
 && cmake .. \
 && make
 ```
+
+### 4. Run a program
+
+In the build folder:
+
+### 4.1. Compile
+```sh
+bytecodecompiler/elc ../examples/test.el
+```
+
+### 4.2.1 Run with C Compiler
+```sh
+runtime/el -it 0 test.le
+```
+
+### 4.2.2 Run with JitBuilder Compiler
+```sh
+runtime/el -it 1 test.le
+```
+
+### 4.2.3 Run with InterpreterBuidler Compiler
+```sh
+runtime/el -it 2 test.le
+```
+
+To see real performance differences, do the above steps with programs that start with `perf_`

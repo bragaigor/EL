@@ -153,8 +153,10 @@ IlValue *JBInterpreter::getImmediate(IlBuilder *builder, int immediate) {
     return builder->LoadAt(_pInt64,
            builder->      ConvertTo(_pInt64,
            builder->                Add(
-           _opcodes->Load(builder),
-           offset)));
+                                        _opcodes->Load(builder),
+                                        offset)
+                                    )
+                            );
 }
 
 IlValue *JBInterpreter::getArg(IlBuilder *builder, IlValue *argIndex) {

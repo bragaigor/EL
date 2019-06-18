@@ -138,6 +138,7 @@ void DemoInterpreter::registerHandlers(OMR::JitBuilder::RuntimeBuilder *rb) {
     rb->RegisterHandler((int32_t)Bytecodes::PUSH_ARG, Bytecode::getBytecodeName(Bytecodes::PUSH_ARG), (void *)&DemoInterpreter::doPushArg);
     rb->RegisterHandler((int32_t)Bytecodes::DUP, Bytecode::getBytecodeName(Bytecodes::DUP), (void *)&DemoInterpreter::doDup);
     rb->RegisterHandler((int32_t)Bytecodes::SUB, Bytecode::getBytecodeName(Bytecodes::SUB), (void *)&DemoInterpreter::doSub);
+    rb->RegisterHandler((int32_t)Bytecodes::DIV, Bytecode::getBytecodeName(Bytecodes::DIV), (void *)&doDiv);
     rb->RegisterHandler((int32_t)Bytecodes::POP, Bytecode::getBytecodeName(Bytecodes::POP), (void *)&DemoInterpreter::doPop);
 }
 
@@ -351,6 +352,18 @@ int64_t DemoInterpreter::doMul(RuntimeBuilder *rb, IlBuilder *b) {
     return 0;
 }
 
+int64_t DemoInterpreter::doDiv(RuntimeBuilder *rb, IlBuilder *b) {
+    DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
+
+    IlValue *right = state->_stack->Pop(b);
+    IlValue *left = state->_stack->Pop(b);
+    IlValue *result = b->Div(left, right);
+    state->_stack->Push(b, result);
+
+    rb->DefaultFallthrough(b, b->ConstInt64(DIV_LENGTH));
+    return 0;
+}
+
 // functionID = getImmediate(IMMEDIATE0);
 // argCount = getImmediate(IMMEDIATE1)
 // newFunction = vm->functions[functionID);
@@ -371,8 +384,8 @@ int64_t DemoInterpreter::doMul(RuntimeBuilder *rb, IlBuilder *b) {
 // push(result)
 int64_t DemoInterpreter::doCallWithJIT(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
-    IlValue *functionID = rb->GetInt64Immediate(b, b->ConstInt64(1));
-    IlValue *argCount = rb->GetInt64Immediate(b, b->ConstInt64(9));
+    IlValue *functionID = rb->GetInt64Immediate(b, b->ConstInt64(IMMEDIATE0));
+    IlValue *argCount = rb->GetInt64Immediate(b, b->ConstInt64(IMMEDIATE1));
 
     b->Store("newFunction",
     b->     LoadAt(b->typeDictionary()->PointerTo(b->typeDictionary()->LookupStruct("Function")),
