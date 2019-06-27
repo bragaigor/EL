@@ -30,6 +30,11 @@ cd EL \
 && make
 ```
 
+If `make` complains about python version use:
+```sh
+cmake -DPYTHON_EXECUTABLE=$(which python3) ..
+```
+
 ### 4. Run a program
 
 In the build folder:

@@ -113,43 +113,43 @@ void DemoInterpreter::Setup() {
 
 void DemoInterpreter::registerHandlers(OMR::JitBuilder::RuntimeBuilder *rb) {
     //Register bytecode handlers
-    rb->RegisterHandler((int32_t)Bytecodes::NOP, Bytecode::getBytecodeName(Bytecodes::NOP), (void *)&DemoInterpreter::doNop);
-    rb->RegisterHandler((int32_t)Bytecodes::HALT, Bytecode::getBytecodeName(Bytecodes::HALT), (void *)&DemoInterpreter::doHalt);
+    rb->RegisterHandler((int32_t)Bytecodes::NOP, Bytecode::getBytecodeName(Bytecodes::NOP), (void *)&DemoInterpreter::registerNop);
+    rb->RegisterHandler((int32_t)Bytecodes::HALT, Bytecode::getBytecodeName(Bytecodes::HALT), (void *)&DemoInterpreter::registerHalt);
 
-    rb->RegisterHandler((int32_t)Bytecodes::PUSH_CONSTANT, Bytecode::getBytecodeName(Bytecodes::PUSH_CONSTANT), (void *)&DemoInterpreter::doPushConstant);
-    rb->RegisterHandler((int32_t)Bytecodes::ADD, Bytecode::getBytecodeName(Bytecodes::ADD), (void *)&DemoInterpreter::doAdd);
-    rb->RegisterHandler((int32_t)Bytecodes::RET, Bytecode::getBytecodeName(Bytecodes::RET), (void *)&DemoInterpreter::doReturn);
+    rb->RegisterHandler((int32_t)Bytecodes::PUSH_CONSTANT, Bytecode::getBytecodeName(Bytecodes::PUSH_CONSTANT), (void *)&DemoInterpreter::registerPushConstant);
+    rb->RegisterHandler((int32_t)Bytecodes::ADD, Bytecode::getBytecodeName(Bytecodes::ADD), (void *)&DemoInterpreter::registerAdd);
+    rb->RegisterHandler((int32_t)Bytecodes::RET, Bytecode::getBytecodeName(Bytecodes::RET), (void *)&DemoInterpreter::registerReturn);
 
-    rb->RegisterHandler((int32_t)Bytecodes::PRINT_STRING, Bytecode::getBytecodeName(Bytecodes::PRINT_STRING), (void *)&DemoInterpreter::doPrintString);
-    rb->RegisterHandler((int32_t)Bytecodes::PRINT_INT64, Bytecode::getBytecodeName(Bytecodes::PRINT_INT64), (void *)&DemoInterpreter::doPrintInt64);
+    rb->RegisterHandler((int32_t)Bytecodes::PRINT_STRING, Bytecode::getBytecodeName(Bytecodes::PRINT_STRING), (void *)&DemoInterpreter::registerPrintString);
+    rb->RegisterHandler((int32_t)Bytecodes::PRINT_INT64, Bytecode::getBytecodeName(Bytecodes::PRINT_INT64), (void *)&DemoInterpreter::registerPrintInt64);
 
-    rb->RegisterHandler((int32_t)Bytecodes::JMP, Bytecode::getBytecodeName(Bytecodes::JMP), (void *)&DemoInterpreter::doJMP);
-    rb->RegisterHandler((int32_t)Bytecodes::JMPL, Bytecode::getBytecodeName(Bytecodes::JMPL), (void *)&DemoInterpreter::doJMPL);
+    rb->RegisterHandler((int32_t)Bytecodes::JMP, Bytecode::getBytecodeName(Bytecodes::JMP), (void *)&DemoInterpreter::registerJMP);
+    rb->RegisterHandler((int32_t)Bytecodes::JMPL, Bytecode::getBytecodeName(Bytecodes::JMPL), (void *)&DemoInterpreter::registerJMPL);
 
-    //rb->RegisterHandler((int32_t)Bytecodes::CALL, Bytecode::getBytecodeName(Bytecodes::CALL), (void *)&DemoInterpreter::doCall);
+    //rb->RegisterHandler((int32_t)Bytecodes::CALL, Bytecode::getBytecodeName(Bytecodes::CALL), (void *)&DemoInterpreter::registerCall);
 
-    rb->RegisterHandler((int32_t)Bytecodes::PUSH_LOCAL, Bytecode::getBytecodeName(Bytecodes::PUSH_LOCAL), (void *)&DemoInterpreter::doPushLocal);
-    rb->RegisterHandler((int32_t)Bytecodes::POP_LOCAL, Bytecode::getBytecodeName(Bytecodes::POP_LOCAL), (void *)&DemoInterpreter::doPopLocal);
-    rb->RegisterHandler((int32_t)Bytecodes::MUL, Bytecode::getBytecodeName(Bytecodes::MUL), (void *)&DemoInterpreter::doMul);
+    rb->RegisterHandler((int32_t)Bytecodes::PUSH_LOCAL, Bytecode::getBytecodeName(Bytecodes::PUSH_LOCAL), (void *)&DemoInterpreter::registerPushLocal);
+    rb->RegisterHandler((int32_t)Bytecodes::POP_LOCAL, Bytecode::getBytecodeName(Bytecodes::POP_LOCAL), (void *)&DemoInterpreter::registerPopLocal);
+    rb->RegisterHandler((int32_t)Bytecodes::MUL, Bytecode::getBytecodeName(Bytecodes::MUL), (void *)&DemoInterpreter::registerMul);
 
-    rb->RegisterHandler((int32_t)Bytecodes::CALL, Bytecode::getBytecodeName(Bytecodes::CALL), (void *)&DemoInterpreter::doCallWithJIT);
+    rb->RegisterHandler((int32_t)Bytecodes::CALL, Bytecode::getBytecodeName(Bytecodes::CALL), (void *)&DemoInterpreter::registerCallWithJIT);
 
-    rb->RegisterHandler((int32_t)Bytecodes::CURRENT_TIME, Bytecode::getBytecodeName(Bytecodes::CURRENT_TIME), (void *)&DemoInterpreter::doCurrentTime);
-    rb->RegisterHandler((int32_t)Bytecodes::PUSH_ARG, Bytecode::getBytecodeName(Bytecodes::PUSH_ARG), (void *)&DemoInterpreter::doPushArg);
-    rb->RegisterHandler((int32_t)Bytecodes::DUP, Bytecode::getBytecodeName(Bytecodes::DUP), (void *)&DemoInterpreter::doDup);
-    rb->RegisterHandler((int32_t)Bytecodes::SUB, Bytecode::getBytecodeName(Bytecodes::SUB), (void *)&DemoInterpreter::doSub);
-    rb->RegisterHandler((int32_t)Bytecodes::DIV, Bytecode::getBytecodeName(Bytecodes::DIV), (void *)&doDiv);
-    rb->RegisterHandler((int32_t)Bytecodes::POP, Bytecode::getBytecodeName(Bytecodes::POP), (void *)&DemoInterpreter::doPop);
+    rb->RegisterHandler((int32_t)Bytecodes::CURRENT_TIME, Bytecode::getBytecodeName(Bytecodes::CURRENT_TIME), (void *)&DemoInterpreter::registerCurrentTime);
+    rb->RegisterHandler((int32_t)Bytecodes::PUSH_ARG, Bytecode::getBytecodeName(Bytecodes::PUSH_ARG), (void *)&DemoInterpreter::registerPushArg);
+    rb->RegisterHandler((int32_t)Bytecodes::DUP, Bytecode::getBytecodeName(Bytecodes::DUP), (void *)&DemoInterpreter::registerDup);
+    rb->RegisterHandler((int32_t)Bytecodes::SUB, Bytecode::getBytecodeName(Bytecodes::SUB), (void *)&DemoInterpreter::registerSub);
+    rb->RegisterHandler((int32_t)Bytecodes::DIV, Bytecode::getBytecodeName(Bytecodes::DIV), (void *)&registerDiv);
+    rb->RegisterHandler((int32_t)Bytecodes::POP, Bytecode::getBytecodeName(Bytecodes::POP), (void *)&DemoInterpreter::registerPop);
 }
 
 //opcodes += NOP_LENGTH;
-int64_t DemoInterpreter::doNop(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerNop(RuntimeBuilder *rb, IlBuilder *b) {
     rb->DefaultFallthrough(b, b->ConstInt64(NOP_LENGTH));
     return 0;
 }
 
 //exit(0);
-int64_t DemoInterpreter::doHalt(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerHalt(RuntimeBuilder *rb, IlBuilder *b) {
     b->Call("exit", 1, b->ConstInt32(0));
     return 1;
 }
@@ -157,7 +157,7 @@ int64_t DemoInterpreter::doHalt(RuntimeBuilder *rb, IlBuilder *b) {
 //int64_t constant = getImmediate(opcodes, IMMEDIATE0);
 //PUSH(constant);
 //opcodes += PUSH_CONSTANT_LENGTH;
-int64_t DemoInterpreter::doPushConstant(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerPushConstant(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     IlValue *constant = rb->GetInt64Immediate(b, b->ConstInt64(IMMEDIATE0));
@@ -171,7 +171,7 @@ int64_t DemoInterpreter::doPushConstant(RuntimeBuilder *rb, IlBuilder *b) {
 //int64_t left = POP();
 //PUSH(left + right);
 //opcodes += ADD_LENGTH;
-int64_t DemoInterpreter::doAdd(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerAdd(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     IlValue *right = state->_stack->Pop(b);
@@ -186,7 +186,7 @@ int64_t DemoInterpreter::doAdd(RuntimeBuilder *rb, IlBuilder *b) {
 //int64_t retVal = POP();
 //vm->frame = frame->previous;
 //return retVal;
-int64_t DemoInterpreter::doReturn(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerReturn(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     IlValue *retVal = state->_stack->Pop(b);
@@ -203,7 +203,7 @@ int64_t DemoInterpreter::doReturn(RuntimeBuilder *rb, IlBuilder *b) {
 // int64_t immediate = getImmediate();
 // String str = vm->strings[immediate]
 // printStringHelper(str.length, str.data)
-int64_t DemoInterpreter::doPrintString(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerPrintString(RuntimeBuilder *rb, IlBuilder *b) {
     IlValue *vm = b->Load("vm");
 
     IlValue *stringID = rb->GetInt64Immediate(b, b->ConstInt64(IMMEDIATE0));
@@ -225,7 +225,7 @@ int64_t DemoInterpreter::doPrintString(RuntimeBuilder *rb, IlBuilder *b) {
 //int64_t val = POP();
 //printInt64(val);
 //opcodes += PRINT_INT64_LENGTH;
-int64_t DemoInterpreter::doPrintInt64(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerPrintInt64(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     IlValue *val = state->_stack->Pop(b);
@@ -236,7 +236,7 @@ int64_t DemoInterpreter::doPrintInt64(RuntimeBuilder *rb, IlBuilder *b) {
 }
 
 //opcodes = target;
-int64_t DemoInterpreter::doJMP(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerJMP(RuntimeBuilder *rb, IlBuilder *b) {
     IlValue *target = rb->GetInt64Immediate(b, b->ConstInt64(IMMEDIATE0));
 
     rb->Jump(b, target, true);
@@ -250,7 +250,7 @@ int64_t DemoInterpreter::doJMP(RuntimeBuilder *rb, IlBuilder *b) {
 //} else {
 //   opcodes += JMPL_LENGTH;
 //}
-int64_t DemoInterpreter::doJMPL(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerJMPL(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     IlValue *right = state->_stack->Pop(b);
@@ -268,7 +268,7 @@ int64_t DemoInterpreter::doJMPL(RuntimeBuilder *rb, IlBuilder *b) {
 // newArgs = frame->stack - argCount
 // result = interpret(vm, newFunction, newArgs)
 // push(result)
-int64_t DemoInterpreter::doCall(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerCall(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     TypeDictionary *dict = b->typeDictionary();
@@ -311,7 +311,7 @@ int64_t DemoInterpreter::doCall(RuntimeBuilder *rb, IlBuilder *b) {
 //local = frame->locals[localIndex];
 //PUSH(local);
 //opcodes += 9;
-int64_t DemoInterpreter::doPushLocal(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerPushLocal(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     IlValue *localIndex = rb->GetInt64Immediate(b, b->ConstInt64(IMMEDIATE0));
@@ -325,7 +325,7 @@ int64_t DemoInterpreter::doPushLocal(RuntimeBuilder *rb, IlBuilder *b) {
 //local = POP()
 //localIndex = getImmediate(opcodes, IMMEDIATE0)
 //frame->locals[localIndex] = local
-int64_t DemoInterpreter::doPopLocal(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerPopLocal(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     IlValue *localIndex = rb->GetInt64Immediate(b, b->ConstInt64(IMMEDIATE0));
@@ -340,7 +340,7 @@ int64_t DemoInterpreter::doPopLocal(RuntimeBuilder *rb, IlBuilder *b) {
 //int64_t left = POP();
 //PUSH(left * right);
 //opcodes += MUL_LENGTH;
-int64_t DemoInterpreter::doMul(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerMul(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     IlValue *right = state->_stack->Pop(b);
@@ -352,7 +352,7 @@ int64_t DemoInterpreter::doMul(RuntimeBuilder *rb, IlBuilder *b) {
     return 0;
 }
 
-int64_t DemoInterpreter::doDiv(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerDiv(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     IlValue *right = state->_stack->Pop(b);
@@ -382,7 +382,7 @@ int64_t DemoInterpreter::doDiv(RuntimeBuilder *rb, IlBuilder *b) {
 //    result = interpret(vm, newFunction, args);
 // }
 // push(result)
-int64_t DemoInterpreter::doCallWithJIT(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerCallWithJIT(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
     IlValue *functionID = rb->GetInt64Immediate(b, b->ConstInt64(IMMEDIATE0));
     IlValue *argCount = rb->GetInt64Immediate(b, b->ConstInt64(IMMEDIATE1));
@@ -463,7 +463,7 @@ int64_t DemoInterpreter::doCallWithJIT(RuntimeBuilder *rb, IlBuilder *b) {
     return 0;
 }
 
-int64_t DemoInterpreter::doCurrentTime(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerCurrentTime(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     IlValue *currentTime = b->Call("getCurrentTime", 0);
@@ -477,7 +477,7 @@ int64_t DemoInterpreter::doCurrentTime(RuntimeBuilder *rb, IlBuilder *b) {
 //arg = frame->args[argIndex];
 //PUSH(arg);
 //opcodes += 9;
-int64_t DemoInterpreter::doPushArg(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerPushArg(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     IlValue *argIndex = rb->GetInt64Immediate(b, b->ConstInt64(IMMEDIATE0));
@@ -488,7 +488,7 @@ int64_t DemoInterpreter::doPushArg(RuntimeBuilder *rb, IlBuilder *b) {
     return 0;
 }
 
-int64_t DemoInterpreter::doDup(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerDup(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     state->_stack->Dup(b);
@@ -501,7 +501,7 @@ int64_t DemoInterpreter::doDup(RuntimeBuilder *rb, IlBuilder *b) {
 //int64_t left = POP();
 //PUSH(left - right);
 //opcodes += SUB_LENGTH;
-int64_t DemoInterpreter::doSub(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerSub(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     IlValue *right = state->_stack->Pop(b);
@@ -513,7 +513,7 @@ int64_t DemoInterpreter::doSub(RuntimeBuilder *rb, IlBuilder *b) {
     return 0;
 }
 
-int64_t DemoInterpreter::doPop(RuntimeBuilder *rb, IlBuilder *b) {
+int64_t DemoInterpreter::registerPop(RuntimeBuilder *rb, IlBuilder *b) {
     DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
 
     state->_stack->Pop(b);

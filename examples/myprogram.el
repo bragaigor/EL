@@ -1,0 +1,11 @@
+MyProgram
+
+DEF main 0
+	PUSH_CONSTANT 3
+	PUSH_CONSTANT 7
+	ADD
+    DUP
+    PRINT_INT64
+    PRINT_STRING "\n"
+    RET
+end

@@ -74,33 +74,33 @@ public:
     static void registerHandlers(OMR::JitBuilder::RuntimeBuilder *rb);
 
 private:
-    static int64_t doNop(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t doHalt(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerNop(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerHalt(RuntimeBuilder *rb, IlBuilder *b);
 
-    static int64_t doPushConstant(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t doAdd(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t doReturn(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerPushConstant(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerAdd(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerReturn(RuntimeBuilder *rb, IlBuilder *b);
 
-    static int64_t doPrintString(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t doPrintInt64(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerPrintString(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerPrintInt64(RuntimeBuilder *rb, IlBuilder *b);
 
-    static int64_t doJMP(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t doJMPL(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerJMP(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerJMPL(RuntimeBuilder *rb, IlBuilder *b);
 
-    static int64_t doCall(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerCall(RuntimeBuilder *rb, IlBuilder *b);
 
-    static int64_t doPushLocal(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t doPopLocal(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t doMul(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t doDiv(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerPushLocal(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerPopLocal(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerMul(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerDiv(RuntimeBuilder *rb, IlBuilder *b);
 
-    static int64_t doCallWithJIT(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerCallWithJIT(RuntimeBuilder *rb, IlBuilder *b);
 
-    static int64_t doCurrentTime(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t doPushArg(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t doDup(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t doSub(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t doPop(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerCurrentTime(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerPushArg(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerDup(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerSub(RuntimeBuilder *rb, IlBuilder *b);
+    static int64_t registerPop(RuntimeBuilder *rb, IlBuilder *b);
 };
 
 class DemoVMState: public VirtualMachineState {
