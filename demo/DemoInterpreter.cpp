@@ -114,32 +114,25 @@ void DemoInterpreter::Setup() {
 void DemoInterpreter::registerHandlers(OMR::JitBuilder::RuntimeBuilder *rb) {
     //Register bytecode handlers
     rb->RegisterHandler((int32_t)Bytecodes::NOP, Bytecode::getBytecodeName(Bytecodes::NOP), (void *)&DemoInterpreter::registerNop);
-    rb->RegisterHandler((int32_t)Bytecodes::HALT, Bytecode::getBytecodeName(Bytecodes::HALT), (void *)&DemoInterpreter::registerHalt);
-
     rb->RegisterHandler((int32_t)Bytecodes::PUSH_CONSTANT, Bytecode::getBytecodeName(Bytecodes::PUSH_CONSTANT), (void *)&DemoInterpreter::registerPushConstant);
-    rb->RegisterHandler((int32_t)Bytecodes::ADD, Bytecode::getBytecodeName(Bytecodes::ADD), (void *)&DemoInterpreter::registerAdd);
+    rb->RegisterHandler((int32_t)Bytecodes::PUSH_ARG, Bytecode::getBytecodeName(Bytecodes::PUSH_ARG), (void *)&DemoInterpreter::registerPushArg);
+    rb->RegisterHandler((int32_t)Bytecodes::PUSH_LOCAL, Bytecode::getBytecodeName(Bytecodes::PUSH_LOCAL), (void *)&DemoInterpreter::registerPushLocal);
+    rb->RegisterHandler((int32_t)Bytecodes::POP, Bytecode::getBytecodeName(Bytecodes::POP), (void *)&DemoInterpreter::registerPop);
+    rb->RegisterHandler((int32_t)Bytecodes::POP_LOCAL, Bytecode::getBytecodeName(Bytecodes::POP_LOCAL), (void *)&DemoInterpreter::registerPopLocal);
+    rb->RegisterHandler((int32_t)Bytecodes::HALT, Bytecode::getBytecodeName(Bytecodes::HALT), (void *)&DemoInterpreter::registerHalt);
     rb->RegisterHandler((int32_t)Bytecodes::RET, Bytecode::getBytecodeName(Bytecodes::RET), (void *)&DemoInterpreter::registerReturn);
-
     rb->RegisterHandler((int32_t)Bytecodes::PRINT_STRING, Bytecode::getBytecodeName(Bytecodes::PRINT_STRING), (void *)&DemoInterpreter::registerPrintString);
     rb->RegisterHandler((int32_t)Bytecodes::PRINT_INT64, Bytecode::getBytecodeName(Bytecodes::PRINT_INT64), (void *)&DemoInterpreter::registerPrintInt64);
-
     rb->RegisterHandler((int32_t)Bytecodes::JMP, Bytecode::getBytecodeName(Bytecodes::JMP), (void *)&DemoInterpreter::registerJMP);
     rb->RegisterHandler((int32_t)Bytecodes::JMPL, Bytecode::getBytecodeName(Bytecodes::JMPL), (void *)&DemoInterpreter::registerJMPL);
-
-    //rb->RegisterHandler((int32_t)Bytecodes::CALL, Bytecode::getBytecodeName(Bytecodes::CALL), (void *)&DemoInterpreter::registerCall);
-
-    rb->RegisterHandler((int32_t)Bytecodes::PUSH_LOCAL, Bytecode::getBytecodeName(Bytecodes::PUSH_LOCAL), (void *)&DemoInterpreter::registerPushLocal);
-    rb->RegisterHandler((int32_t)Bytecodes::POP_LOCAL, Bytecode::getBytecodeName(Bytecodes::POP_LOCAL), (void *)&DemoInterpreter::registerPopLocal);
     rb->RegisterHandler((int32_t)Bytecodes::MUL, Bytecode::getBytecodeName(Bytecodes::MUL), (void *)&DemoInterpreter::registerMul);
-
-    rb->RegisterHandler((int32_t)Bytecodes::CALL, Bytecode::getBytecodeName(Bytecodes::CALL), (void *)&DemoInterpreter::registerCallWithJIT);
-
-    rb->RegisterHandler((int32_t)Bytecodes::CURRENT_TIME, Bytecode::getBytecodeName(Bytecodes::CURRENT_TIME), (void *)&DemoInterpreter::registerCurrentTime);
-    rb->RegisterHandler((int32_t)Bytecodes::PUSH_ARG, Bytecode::getBytecodeName(Bytecodes::PUSH_ARG), (void *)&DemoInterpreter::registerPushArg);
+    rb->RegisterHandler((int32_t)Bytecodes::ADD, Bytecode::getBytecodeName(Bytecodes::ADD), (void *)&DemoInterpreter::registerAdd);
     rb->RegisterHandler((int32_t)Bytecodes::DUP, Bytecode::getBytecodeName(Bytecodes::DUP), (void *)&DemoInterpreter::registerDup);
     rb->RegisterHandler((int32_t)Bytecodes::SUB, Bytecode::getBytecodeName(Bytecodes::SUB), (void *)&DemoInterpreter::registerSub);
-    rb->RegisterHandler((int32_t)Bytecodes::DIV, Bytecode::getBytecodeName(Bytecodes::DIV), (void *)&registerDiv);
-    rb->RegisterHandler((int32_t)Bytecodes::POP, Bytecode::getBytecodeName(Bytecodes::POP), (void *)&DemoInterpreter::registerPop);
+    // TODO: registerMod ? registerDiv ? registerJMPE ? registerJMPG ?
+    rb->RegisterHandler((int32_t)Bytecodes::CURRENT_TIME, Bytecode::getBytecodeName(Bytecodes::CURRENT_TIME), (void *)&DemoInterpreter::registerCurrentTime);
+    //rb->RegisterHandler((int32_t)Bytecodes::CALL, Bytecode::getBytecodeName(Bytecodes::CALL), (void *)&DemoInterpreter::registerCall);
+    rb->RegisterHandler((int32_t)Bytecodes::CALL, Bytecode::getBytecodeName(Bytecodes::CALL), (void *)&DemoInterpreter::registerCallWithJIT);
 }
 
 //opcodes += NOP_LENGTH;
@@ -349,18 +342,6 @@ int64_t DemoInterpreter::registerMul(RuntimeBuilder *rb, IlBuilder *b) {
     state->_stack->Push(b, result);
 
     rb->DefaultFallthrough(b, b->ConstInt64(MUL_LENGTH));
-    return 0;
-}
-
-int64_t DemoInterpreter::registerDiv(RuntimeBuilder *rb, IlBuilder *b) {
-    DemoVMState *state = static_cast<DemoVMState *>(rb->GetVMState(b));
-
-    IlValue *right = state->_stack->Pop(b);
-    IlValue *left = state->_stack->Pop(b);
-    IlValue *result = b->Div(left, right);
-    state->_stack->Push(b, result);
-
-    rb->DefaultFallthrough(b, b->ConstInt64(DIV_LENGTH));
     return 0;
 }
 

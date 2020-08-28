@@ -92,7 +92,6 @@ private:
     static int64_t registerPushLocal(RuntimeBuilder *rb, IlBuilder *b);
     static int64_t registerPopLocal(RuntimeBuilder *rb, IlBuilder *b);
     static int64_t registerMul(RuntimeBuilder *rb, IlBuilder *b);
-    static int64_t registerDiv(RuntimeBuilder *rb, IlBuilder *b);
 
     static int64_t registerCallWithJIT(RuntimeBuilder *rb, IlBuilder *b);
 
